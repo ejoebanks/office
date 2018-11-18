@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="alert alert-success" role="alert">
+    Order Placed. View your order details below.
+  </div>
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+      <table class="table">
+        <tbody>
+          <% $ary.each do |a| %>
+            <% @ox = Order.find(a) %>
+              <tr>
+                <th>Supply</th>
+                <td><%= @ox.supply_id %></td>
+              </tr>
+              <tr>
+                <th>Supplier</th>
+                <td><%= @ox.supplier_id %></td>
+              </tr>
+              <tr>
+                <th>Quantity</th>
+                <td><%= @ox.quantity %></td>
+              </tr>
+
+              <tr>
+                <th>Cost</th>
+                <td>$<%=number_with_precision(@ox.totalcost, :precision => 2) %>
+
+                </td>
+              </tr>
+              <tr>
+                <th>Date</th>
+                <td><%= @ox.date %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+      </div>
+      <div class="col-sm-2"></div>
+    </div>
+  </div>

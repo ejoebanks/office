@@ -22,13 +22,18 @@ class OrdersController < ApplicationController
   end
 
   def placeorder
+    $ary = []
     @order_items = current_order.order_items
     @order_items.each do |item|
-      @order = Order.new(:supply_id => item.supply_id, :employee_id => current_user.id, :supplier_id => 1, :quantity => item.quantity, :totalcost => item.total_price, :status => 0, :date => Time.now.strftime("%m-%d-%Y %H:%M"))
+      @order = Order.new(:supply_id => item.supply_id, :employee_id => current_user.id, :supplier_id => 1, :quantity => item.quantity, :totalcost => item.total_price, :status => 0, :date => Time.now.strftime("%m-%d-%Y"))
       item.destroy
       @order.save
+      $ary.push("#{@order.id}")
     end
-    redirect_to "/cart"
+    redirect_to "/confirmation"
+  end
+
+  def confirmation
   end
 
 

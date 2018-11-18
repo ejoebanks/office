@@ -17,5 +17,6 @@ Rails.application.routes.draw do
   root 'welcome#index'
   post 'inventory/orders'
   post '/cart' => "orders#placeorder"
+  get '/confirmation' => "orders#confirmation"
 
 end

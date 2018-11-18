@@ -5,10 +5,11 @@
   <div class="row">
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
-      <table class="table">
+      <% $ary.each do |a| %>
+      <% @ox = Order.find(a) %>
+      <h1 class="display-4"><%= @ox.supply_id %></h1>
+      <table class="table table-hover table-dark">
         <tbody>
-          <% $ary.each do |a| %>
-            <% @ox = Order.find(a) %>
               <tr>
                 <th>Supply</th>
                 <td><%= @ox.supply_id %></td>
@@ -32,9 +33,9 @@
                 <th>Date</th>
                 <td><%= @ox.date %></td>
               </tr>
-            <% end %>
           </tbody>
         </table>
+        <% end %>
 
       </div>
       <div class="col-sm-2"></div>

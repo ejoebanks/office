@@ -6,17 +6,13 @@
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
       <% $ary.each do |a| %>
-      <% @ox = Order.find(a) %>
-      <h1 class="display-4"><%= @ox.supply_id %></h1>
+      <% @ox = Order.joins("INNER JOIN supplies on orders.supply_id = supplies.suppliesid INNER JOIN suppliers ON suppliers.id = orders.supplier_id").select('orders.*, supplies.supplyname, suppliers.name AS supplier').find(a) %>
+      <h1 class="display-4"><%= @ox.supplyname %></h1>
       <table class="table table-hover table-dark">
         <tbody>
               <tr>
-                <th>Supply</th>
-                <td><%= @ox.supply_id %></td>
-              </tr>
-              <tr>
                 <th>Supplier</th>
-                <td><%= @ox.supplier_id %></td>
+                <td><%= @ox.supplier %></td>
               </tr>
               <tr>
                 <th>Quantity</th>

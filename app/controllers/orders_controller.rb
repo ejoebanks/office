@@ -28,6 +28,8 @@ class OrdersController < ApplicationController
       @order = Order.new(:supply_id => item.supply_id, :employee_id => current_user.id, :supplier_id => 1, :quantity => item.quantity, :totalcost => item.total_price, :status => 0, :date => Time.now.strftime("%m-%d-%Y"))
       item.destroy
       @order.save
+      supply = Supply.find(item.supply_id)
+      supply.increment!(:inventory, item.quantity)
       $ary.push("#{@order.id}")
     end
     redirect_to "/confirmation"

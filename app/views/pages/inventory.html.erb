@@ -46,6 +46,7 @@
                 <td>
                   <%= form_for @order_item do |f| %>
                   <%= f.hidden_field :supply_id, value: t.suppliesid %>
+                  <%= f.hidden_field :supplier_id, value: 1 %>
                   <%= f.number_field :quantity %>
                   <%= f.submit "Order More", class: "btn-xs btn-success" %>
                 <% end %>

@@ -2,12 +2,14 @@ class OrderItem < ApplicationRecord
     belongs_to :order
   	belongs_to :supply
     has_many :cost
-
+    belongs_to :supplier
   	before_save :set_unit_price
   	before_save :set_total_price
+    before_update :set_total_price
+    before_update :set_unit_price
 
     def unit_price
-      @rez = Cost.where(:supply_id => supply.suppliesid).select(:cost)
+      @rez = Cost.where(:supply_id => supply.suppliesid, :supplier_id => supplier.id).select(:cost)
   		if persisted?
   			self[:unit_price]
   		else

@@ -9,11 +9,18 @@ class OrderItemsController < ApplicationController
 	end
 
 	def update
+		permitValues = params.permit(order_item: [:supplier_id, :supply_id])
+		supplierID = permitValues[:order_item][:supplier_id]
+		supplyID = permitValues[:order_item][:supply_id]
+
 		@order = current_order
 		@order_item = @order.order_items.find(params[:id])
+		newPrice = Cost.where(:supply_id => supplyID, :supplier_id => supplierID).pluck(:cost).first
+		@order_item.update_attributes(:unit_price => newPrice)
 		@order_item.update_attributes(order_item_params)
 		@order_items = @order.order_items
 		respond_to do |format|
+			@order.save
 		  format.js {render inline: "location.reload();" }
 		end
 	end
@@ -28,6 +35,6 @@ class OrderItemsController < ApplicationController
 
 	private
 		def order_item_params
-			params.require(:order_item).permit(:supply_id, :quantity)
+			params.require(:order_item).permit(:supply_id, :quantity, :supplier_id)
 		end
 end

@@ -38,9 +38,9 @@
              @all_orders.each do |x| %>
             <tr>
               <td><%= x.id %></td>
-              <td><%= x.supply_id %></td>
-              <td><%= x.employee_id %></td>
-              <td><%= x.supplier_id %></td>
+              <td><%= x.supplyname %></td>
+              <td><%= x.first_name %> <%= x.last_name %></td>
+              <td><%= x.supplier %></td>
               <td><%= x.quantity %></td>
               <td>$<%= number_with_precision("#{x.totalcost}", :precision => 2) %></td>
               <td><%= x.date %></td>

@@ -25,8 +25,7 @@ class PagesController < ApplicationController
   end
 
   def listOrders
-    "orders_list"
-    @all_orders = Order.all
+    @all_orders = Order.joins("INNER JOIN supplies on orders.supply_id = supplies.suppliesid INNER JOIN suppliers ON suppliers.id = orders.supplier_id INNER JOIN users ON users.id = orders.employee_id").select('orders.*, supplies.supplyname, suppliers.name AS supplier, users.first_name, users.last_name')
   end
 
 end

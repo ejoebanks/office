@@ -18,5 +18,8 @@ Rails.application.routes.draw do
   post 'inventory/orders'
   post '/cart' => "orders#placeorder"
   get '/confirmation' => "orders#confirmation"
+  get '/oinfo' => "orders#orderInfo"
+  get '/ordersummary' => "pages#listOrders"
+
 
 end

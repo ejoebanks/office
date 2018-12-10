@@ -19,4 +19,14 @@ class PagesController < ApplicationController
   def emps
     @users = User.all
   end
+
+  def orderInfo
+    @ooz = Order.joins("INNER JOIN supplies on orders.supply_id = supplies.suppliesid INNER JOIN suppliers ON suppliers.id = orders.supplier_id").select('orders.*, supplies.supplyname, suppliers.name AS supplier')
+  end
+
+  def listOrders
+    "orders_list"
+    @all_orders = Order.all
+  end
+
 end

@@ -9,9 +9,12 @@
   <div class="card-body">
     <% if @order_items.any? %>
       <% @order_items.each do |item| %>
+
         <%= form_for item, remote: true do |f| %>
-        <% @rez = Cost.where(:supply_id => item.supply.suppliesid).select(:cost) %>
+
+
           <div class="row">
+            <% @rez.inspect %>
             <div class="col-12 col-sm-12 col-md-2 text-center">
               <img class="img-responsive" src="http://placehold.it/120x80" alt="prewiew" width="120" height="80">
             </div>
@@ -22,14 +25,18 @@
               <h4>
                 <small>Product description</small>
               </h4>
-              <% options = options_from_collection_for_select(Supplier.all, 'id', 'name') %>
-                <%= f.select :id, options, :input_html => { class: "dropdown-menu" } %>
-
+              <% options = options_from_collection_for_select(Supplier.all, 'id', 'name', selected: item.supplier_id) %>
+                <%= f.select :supplier_id, options, :input_html => { class: "dropdown-menu" }  %>
               </div>
+              <% @rez = Cost.where(:supply_id => item.supply.suppliesid, :supplier_id => item.supplier_id).select(:cost) %>
+              <%= f.hidden_field :supply_id, :value => item.supply.suppliesid %>
+
               <div class="col-12 col-sm-12 text-sm-center col-md-4 text-md-right row">
                 <div class="col-3 col-sm-3 col-md-6 text-md-right" style="padding-top: 5px">
                   <h6>
+
                     <strong>$<%=number_with_precision("#{@rez.pluck(:cost).first}", :precision => 2) %>
+
                       <span class="text-muted">x</span></strong>
                   </h6>
                 </div>

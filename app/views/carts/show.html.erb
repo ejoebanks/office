@@ -66,7 +66,7 @@
       <%= button_to "Place Order", {:method=> "placeorder"}, class: "btn btn-success pull-right" %>
       <div class="pull-right" style="margin: 5px">
         Total price:
-        <b>$<%=number_with_precision("#{current_order.subtotal}", :precision => 2) %></b>
+        <b><%=number_to_currency("#{current_order.subtotal}") %></b>
       </div>
     </div>
   </div>

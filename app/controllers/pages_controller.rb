@@ -1,4 +1,6 @@
 class PagesController < ApplicationController
+  before_action :authenticate_user!
+
   def inventory
     @suppliers = Supplier.all
     @supplies = Supply.all
@@ -25,7 +27,14 @@ class PagesController < ApplicationController
   end
 
   def listOrders
+    @orderCount = Order.count
+    @orderSum = Order.sum(:totalcost)
     @all_orders = Order.joins("INNER JOIN supplies on orders.supply_id = supplies.suppliesid INNER JOIN suppliers ON suppliers.id = orders.supplier_id INNER JOIN users ON users.id = orders.employee_id").select('orders.*, supplies.supplyname, suppliers.name AS supplier, users.first_name, users.last_name')
   end
+
+  def listCosts
+    @allCosts = Cost.joins("INNER JOIN suppliers ON costs.supplier_id = suppliers.id INNER JOIN supplies on costs.supply_id = supplies.suppliesid").select("costs.id, costs.cost, suppliers.name, supplies.supplyname")
+  end
+
 
 end

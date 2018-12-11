@@ -66,9 +66,9 @@
     <h2 class="page-header">Recent Orders</h2>
   </div>
 
-  <% @osInfo.each do |os| %>
+  <% @osInfo.last(9).each do |os| %>
     <div class="col-md-4 text-center">
-      <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+      <div class="card text-white bg-secondary mb-3" style="max-width: 18rem; height: 12rem;">
         <div class="card-header"><%= os.name %></div>
         <div class="card-body">
           <h5 class="card-title"><%= os.first_name + ' ' + os.last_name %></h5>

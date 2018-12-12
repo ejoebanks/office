@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   protect_from_forgery with: :exception
   helper_method :current_order
+  before_action :authenticate_user!
 
   def current_order
     if session[:order_id]
@@ -18,5 +19,4 @@ class ApplicationController < ActionController::Base
 
           devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:first_name, :last_name, :address, :city, :state, :email, :phonenumber, :password, :current_password)}
         end
-
       end

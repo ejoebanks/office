@@ -181,6 +181,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    rdoc (6.0.4)
     remotipart (1.4.2)
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
@@ -254,6 +255,7 @@ DEPENDENCIES
   rails (~> 5.1.6)
   rails-erd
   rails_admin (~> 1.2)
+  rdoc
   sass-rails (~> 5.0)
   selenium-webdriver
   turbolinks (~> 5)

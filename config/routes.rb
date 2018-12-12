@@ -9,17 +9,24 @@ Rails.application.routes.draw do
   resources :supplies
   resource :cart, only: [:show]
   devise_for :users
-
+  get "/order" => "pages#order"
   get "/inventory" => "pages#inventory"
   get "/staff" => "pages#emps"
   get "/test" => "pages#testpage"
-  get "/order" => "pages#order"
-  root 'welcome#index'
   post 'inventory/orders'
   post '/cart' => "orders#placeorder"
   get '/confirmation' => "orders#confirmation"
   get '/oinfo' => "orders#orderInfo"
   get '/ordersummary' => "pages#listOrders"
+  get '/suppliercosts' => "pages#listCosts"
 
+  devise_scope :user do
+    authenticated :user do
+      root 'welcome#index', as: :authenticated_root
+    end
 
+    unauthenticated do
+      root 'devise/sessions#new', as: :unauthenticated_root
+    end
+  end
 end
